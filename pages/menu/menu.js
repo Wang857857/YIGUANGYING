@@ -279,7 +279,7 @@ Page({
 
   goToCheckout() {
     if (this.data.totalQuantity <= 0) {
-      wx.showToast({ title: '购物车为空1', icon: 'none' });
+      wx.showToast({ title: '购物车为空', icon: 'none' });
       return;
     }
     const cartArr = Object.values(this.data.cart);
