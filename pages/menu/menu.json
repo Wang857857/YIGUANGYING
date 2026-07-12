@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "spec-modal": "/components/spec-modal/spec-modal",
+    "cart-modal": "/components/cart-modal/cart-modal"
+  }
+}

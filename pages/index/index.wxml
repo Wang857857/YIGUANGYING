@@ -1,0 +1,29 @@
+<view class="container">
+  <!-- 欢迎语区域（置顶，占1/3） -->
+  <view class="welcome-section">
+    <view class="welcome-card">
+      <view class="icon-wrapper">
+        <text class="icon">🍽️</text>
+      </view>
+      <view class="text-wrapper">
+        <text class="title">欢迎光临忆·光影餐厅</text>
+        <text class="subtitle">农家风味，家的味道</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 轮播图区域（占2/3，完整显示） -->
+  <swiper 
+    class="banner-swiper" 
+    indicator-dots="{{true}}"
+    autoplay="{{true}}"
+    interval="{{5000}}"
+    duration="{{500}}"
+    circular="{{true}}">
+    <block wx:for="{{banners}}" wx:key="index">
+      <swiper-item>
+        <image src="{{item}}" mode="aspectFill" class="banner-img" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

@@ -1,0 +1,141 @@
+<!-- pages/menu/menu.wxml -->
+<view class="menu-page">
+  <!-- 顶部 - 保留第一版的样式 -->
+  <view class="top-bar">
+    <view class="top-left">
+      <image src="/images/top/store_icon.png" mode="aspectFit" class="store-icon" />
+      <text class="store-name">忆·光影餐厅</text>
+    </view>
+    <view class="top-right">
+      <text class="table-number">桌号：{{tableId || '未选择'}}</text>
+    </view>
+  </view>
+
+  <!-- 搜索栏：点击弹出输入框 -->
+  <view class="search-bar" bindtap="showSearchInput">
+    <view class="search-input">
+      <text class="search-text">搜索菜品</text>
+    </view>
+  </view>
+
+  <!-- 搜索弹窗：带确认按钮，支持模糊搜索 -->
+  <view class="search-modal-mask" wx:if="{{showSearch}}" bindtap="hideSearch"></view>
+  <view class="search-modal" wx:if="{{showSearch}}">
+    <!-- 输入框+搜索按钮 -->
+    <view class="search-input-wrap">
+      <input 
+        class="search-input-field" 
+        placeholder="输入菜名/酒水搜索..." 
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        focus="{{showSearch}}"
+      />
+      <!-- 清空按钮 -->
+      <view class="search-clear" wx:if="{{searchKeyword}}" bindtap="clearSearch">×</view>
+      <!-- 搜索确认按钮 -->
+      <button class="search-btn" bindtap="doSearch">搜索</button>
+    </view>
+
+    <!-- 搜索结果 -->
+    <view class="search-result" wx:if="{{searchResult.length > 0}}">
+      <view class="result-title">搜索结果（{{searchResult.length}}个）</view>
+      <view 
+        wx:for="{{searchResult}}" 
+        wx:key="id"
+        class="search-item"
+        bindtap="selectSearchItem"
+        data-dish="{{item}}">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-price">¥{{item.price}}</text>
+      </view>
+    </view>
+
+    <!-- 无结果提示 -->
+    <view class="search-empty" wx:elif="{{searchKeyword && searchResult.length === 0}}">
+      未找到「{{searchKeyword}}」相关菜品
+    </view>
+  </view>
+
+  <!-- 左右布局主体 -->
+  <view class="main-content">
+    <scroll-view 
+      scroll-y 
+      class="left-category"
+      style="height: 100%;">
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="id"
+        class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="switchCategory">
+
+        <!-- 图标：只有 active 选中时才显示 -->
+        <view class="category-icon" wx:if="{{currentCategory === item.id}}">
+          <image src="/images/category/{{item.id}}.png" mode="aspectFit" class="icon-img" />
+        </view>
+
+        <text class="category-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <!-- 右边菜品列表 - 修复底部被购物车遮挡 -->
+    <scroll-view 
+      scroll-y 
+      class="right-dishes"
+      style="height: 100%; padding-bottom: 130rpx;"
+      scroll-into-view="{{toView}}"
+      scroll-with-animation="{{true}}">
+      <view wx:for="{{currentDishes}}" wx:key="id" class="dish-item {{highlightDishId === item.id ? 'highlight' : ''}}" id="dish_{{item.id}}">
+        <view class="dish-info">
+          <view class="dish-header">
+            <text class="dish-name">{{item.name}}</text>
+            <text class="dish-price">¥{{item.price}}</text>
+          </view>
+          <text class="dish-desc" wx:if="{{item.description}}">{{item.description}}</text>
+            <view class="dish-footer">
+              <text 
+                wx:if="{{item.hasSpec || item.isWeight}}" 
+                class="spec-btn" 
+                bindtap="showSpecModal" 
+                data-dish="{{item}}">选规格
+              </text>
+              <view wx:else>
+                <button 
+                  wx:if="{{getItemQuantity(item) > 0}}"
+                  class="btn-minus" 
+                  bindtap="decreaseQuantity"
+                  data-dish="{{item}}">-
+                </button>
+                  <text wx:if="{{getItemQuantity(item) > 0}}" class="quantity">{{getItemQuantity(item)}}
+                  </text>
+                <button 
+                class="btn-plus" 
+                bindtap="addToCart"
+                data-dish="{{item}}">+
+                </button>
+              </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 规格选择弹窗 -->
+  <spec-modal id="specModal" bind:confirm="addToCartWithSpec" />
+  <!-- ====================== 底部购物车悬浮条 ====================== -->
+  <view class="bottom-cart-bar" bindtap="goToCart">
+    <view class="cart-left">
+      <!-- 购物车图标 + 数量红点 -->
+      <view class="cart-icon-wrap">
+        <image src="/images/cart/cart.png" class="cart-icon" mode="aspectFit" />
+        <text class="cart-badge" wx:if="{{totalQuantity > 0}}">{{totalQuantity}}</text>
+      </view>
+      <!-- 合计金额 -->
+      <text class="cart-total">合计：¥{{totalPrice}}</text>
+    </view>
+      <!-- 去结算按钮（最右侧） -->
+      <button class="settle-btn" catchtap="goToCheckout">去结算</button>
+    </view>
+  <!-- 购物车弹窗 -->
+  <cart-modal id="cartModal" bind:change="loadCart" />
+</view>

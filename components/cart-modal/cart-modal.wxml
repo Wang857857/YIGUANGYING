@@ -1,0 +1,48 @@
+<view class="mask" wx:if="{{show}}" bindtap="close"></view>
+<view class="cart-modal" wx:if="{{show}}">
+  <view class="header">
+    <view class="cart-icon-modal">
+      <image src="/images/cart/cart2.png"></image>
+      <view class="cart-count-badge" wx:if="{{totalQuantity > 0}}">
+        {{totalQuantity}}
+      </view>
+      <text>购物车</text>
+    </view>
+    <view class="clear-wrap" bindtap="clearCart">
+      <image src="/images/cart/delete.png" class="clear-icon"></image>
+      <text class="clear-text">清空</text>
+    </view>
+    <view class="close" bindtap="close">×</view>
+  </view>
+
+  <!-- 核心优化：enhanced增强滚动、关闭滚动动画、阻止触摸穿透 -->
+  <scroll-view scroll-y class="list" enhanced="true" scroll-animation="false" bindtouchmove="stopPropagation">
+    <view wx:if="{{list.length===0}}" class="empty">暂时没有添加菜品</view>
+    <view wx:for="{{list}}" wx:key="key" class="item">
+      <view class="item-left">
+        <view class="name-line">
+          <text class="name">{{item.name}}</text>
+          <text class="spec">{{item.displaySpec}}</text>
+        </view>
+        
+        <text class="remark" wx:if="{{item.remark}}">备注：{{item.remark}}</text>
+        
+        <view class="price-wrap">
+          <text class="price">¥{{item.subTotal}}</text>
+          <text class="tip-text" wx:if="{{item.isJinWeight}}">（实际价格以称重为准，结账时请记得核算！）</text>
+        </view>
+      </view>
+
+      <view class="counter">
+        <button bindtap="decrease" data-key="{{item.key}}">-</button>
+        <text>{{item.quantity}}</text>
+        <button bindtap="increase" data-key="{{item.key}}">+</button>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="footer">
+    <text>合计：<text class="total">¥{{total}}</text></text>
+    <button bindtap="goCheck">去结算</button>
+  </view>
+</view>

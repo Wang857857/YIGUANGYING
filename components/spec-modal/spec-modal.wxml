@@ -1,0 +1,70 @@
+<view class="spec-modal-mask" wx:if="{{visible}}" bindtap="hideModal"></view>
+<view class="spec-modal" wx:if="{{visible}}">
+  <view class="spec-header">
+    <text class="spec-title">{{currentDish.name}}</text>
+    <text class="spec-price">¥{{selectedPrice}}</text>
+    <text class="spec-close" bindtap="hideModal">×</text>
+  </view>
+
+  <view class="spec-section" wx:if="{{currentDish.options && currentDish.options.length > 0}}">
+    <text class="section-title">选择口味</text>
+    <view class="spec-options">
+      <view 
+        wx:for="{{currentDish.options}}" 
+        wx:key="*this"
+        class="spec-option {{selectedSpec === item ? 'active' : ''}}"
+        bindtap="selectSpec"
+        data-spec="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <view class="spec-section" wx:if="{{currentDish.specOptions && currentDish.specOptions.length > 0}}">
+    <text class="section-title">选择规格</text>
+    <view class="spec-options">
+      <view 
+        wx:for="{{currentDish.specOptions}}" 
+        wx:key="name"
+        class="spec-option {{selectedUnit === item.name ? 'active' : ''}}"
+        bindtap="selectUnit"
+        data-unit="{{item.name}}"
+        data-price="{{item.price}}">
+        {{item.name}}（¥{{item.price}}）
+      </view>
+    </view>
+  </view>
+
+  <!-- 重量选择（斤） -->
+  <view class="spec-section" wx:if="{{currentDish.isDrinkWeight}}">
+    <text class="section-title">选择重量（斤）</text>
+    <view class="weight-control">
+      <view class="weight-btn minus" bindtap="changeWeight" data-type="minus">-</view>
+      <text class="weight-num">{{selectedWeight}}</text>
+      <view class="weight-btn plus" bindtap="changeWeight" data-type="add">+</view>
+    </view>
+  </view>
+
+  <view class="spec-section">
+    <text class="section-title">备注</text>
+    <input class="remark-input" placeholder="选填" bindinput="inputRemark" />
+  </view>
+
+  <!-- 酒水数量控件 -->
+  <view class="spec-section" wx:if="{{currentDish.category === 'drink' && !currentDish.isDrinkWeight}}">
+    <text class="section-title">选择数量</text>
+    <view class="weight-control">
+      <view class="weight-btn minus" bindtap="changeDrinkCount" data-type="minus">-</view>
+      <text class="weight-num">{{drinkCount}}</text>
+      <view class="weight-btn plus" bindtap="changeDrinkCount" data-type="add">+</view>
+    </view>
+  </view>
+
+  <!-- 确认按钮 -->
+  <view class="spec-confirm" bindtap="confirmSpec">
+    <view class="btn-content">
+      <text>确认加入购物车</text>
+      <text class="btn-price">¥{{selectedPrice}}</text>
+    </view>
+  </view>
+</view>

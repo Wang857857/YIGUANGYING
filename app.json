@@ -1,0 +1,47 @@
+{
+  "entryPagePath": "pages/index/index",
+  
+  "pages": [
+    "pages/index/index",
+    "pages/menu/menu"
+  ],
+  "subPackages": [
+    {
+      "root":"subPackages",
+      "pages": [
+        "checkout/checkout"
+      ]
+    }
+  ],
+
+  "tabBar": {
+    "color": "black",
+    "selectedColor": "#ff6600",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/menu/menu",
+        "text": "菜单",
+        "iconPath": "images/tab/menu.png",
+        "selectedIconPath": "images/tab/menu_active.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab/home.png",
+        "selectedIconPath": "images/tab/home_active.png"
+      }
+    ]
+  },
+
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "忆·光影",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,84 @@
+/* 页面容器 - 垂直布局，占满屏幕 */
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 欢迎语区域（占1/3，背景不变） */
+.welcome-section {
+  flex: 1;
+  width: 100%;
+  background: linear-gradient(135deg, #f1eb77 0%, #efa23c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* 欢迎语卡片（收窄宽度，更精致） */
+.welcome-card {
+  display: flex;
+  align-items: center;
+  gap: 25rpx;
+  /* 收窄卡片宽度，不再占满屏幕 */
+  width: 70%; /* 卡片占欢迎语区域的70% */
+  max-width: 500rpx; /* 最大宽度限制，避免太宽 */
+  padding: 25rpx 30rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+}
+
+.icon-wrapper {
+  width: 70rpx;
+  height: 70rpx;
+  background: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35rpx;
+  color: #8B4513;
+}
+
+.text-wrapper {
+  color: #333;
+  text-align: center;
+}
+
+.title {
+  font-size: 38rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  font-size: 30rpx;
+  opacity: 0.8;
+}
+
+/* 轮播图区域（占2/3，完美填充） */
+.banner-swiper {
+  flex: 6;
+  width: 100%;
+  /* 去掉左右padding，让图片占满屏幕 */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  /* 去掉圆角，让图片完全填充轮播容器 */
+  border-radius: 0;
+  object-fit: cover; /* 图片完美填充，无留白 */
+}

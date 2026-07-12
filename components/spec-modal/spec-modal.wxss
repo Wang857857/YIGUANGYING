@@ -1,0 +1,161 @@
+/* 遮罩层 */
+.spec-modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+/* 弹窗主体 */
+.spec-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-radius: 24rpx 24rpx 0 0;
+  z-index: 10000;
+  padding: 40rpx 30rpx 60rpx;
+  box-sizing: border-box;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* 弹窗头部 */
+.spec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.spec-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+.spec-price {
+  font-size: 32rpx;
+  color: #e4393c;
+  font-weight: 500;
+}
+.spec-close {
+  font-size: 48rpx;
+  color: #999;
+  line-height: 1;
+}
+
+/* 规格区块 */
+.spec-section {
+  margin-bottom: 40rpx;
+}
+.section-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: block;
+  font-weight: 500;
+}
+
+/* 选项按钮 - 文字完美居中 + 单行横向可滑动 */
+.spec-options {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20rpx;
+  overflow-x: auto;
+  padding-bottom: 10rpx;
+  scrollbar-width: none;
+}
+.spec-options::-webkit-scrollbar {
+  display: none;
+}
+.spec-option {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72rpx;
+  padding: 0 32rpx;
+  border-radius: 40rpx;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 28rpx;
+}
+.spec-option.active {
+  background: #e4393c;
+  color: #fff;
+}
+
+/* 备注输入框 */
+.remark-input {
+  width: 100%;
+  height: 80rpx;
+  background: #fff;
+  border: 1rpx solid #eee;
+  border-radius: 16rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* 确认按钮外层 */
+.spec-confirm {
+  width: 100%;
+  height: 88rpx;
+  background: #e4393c;
+  color: #fff;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 完全和上面规格按钮一样：居中、紧凑、无多余空白 */
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx; /* 文字和价格只挨在一起，不分开 */
+}
+
+.btn-price {
+  font-weight: 500;
+}
+
+/* 重量控制条：和购物车一样的布局 */
+.weight-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+/* 圆形加减按钮，和购物车样式一致 */
+.weight-btn {
+  width: 72rpx;
+  height: 72rpx;
+  border: 1rpx solid #e5e5e5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #333;
+}
+.weight-btn:active {
+  background-color: #f5f5f5;
+}
+
+/* 中间的数字 */
+.weight-num {
+  font-size: 32rpx;
+  width: 40rpx;
+  text-align: center;
+}
